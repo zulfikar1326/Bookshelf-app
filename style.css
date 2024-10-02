@@ -1,0 +1,104 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    text-align: center;
+    background-color: aquamarine;
+    margin-bottom: 1rem;
+    width: 100%;
+    display: inline-block;
+}
+
+
+main{
+    display: inline-block;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+section{
+    border: 1px solid blueviolet;
+    width: 70vw;
+    margin: 1rem auto;
+}
+
+section h2{
+    background-color:  aqua;
+    display: block;
+    margin:auto;
+    width: auto;
+    padding: 1rem;
+}
+
+#bookForm, #searchBook{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem 2rem;
+    gap: 1.5rem ;
+    justify-content: center;
+    align-items: center;
+}
+
+#bookForm input, #searchBook input{
+    border: none;
+    border-bottom: 1px solid black;
+    height: 2rem;
+}
+#bookForm label, #searchBook label{
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#bookForm button, #searchBook button{
+    padding: 0.5rem;
+    border-radius: 2rem;
+    border: none;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    -o-border-radius: 2rem;
+}
+
+#bookForm button > span{
+    color: red;
+}
+
+#bookForm button:hover, #searchBook button:hover{
+    background-color:  aqua;
+}
+
+.containerBookList{
+    display: flex;
+    width: 80vw;
+    margin: auto;
+    gap: 2rem;
+}
+
+/* #incompleteBookList , #completeBookList{
+    display: inline-flex;
+} */
+
+#incompleteBookList > div, #completeBookList > div{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2rem;
+}
+
+#incompleteBookList div > p , #completeBookList div > p{
+    padding: 0.5rem;
+}
+#incompleteBookList div > button , #completeBookList div > button{
+    padding: 1em;
+    border: none;
+}
+
+#incompleteBookList div > button:hover , #completeBookList div > button:hover{
+    background-color: red;
+}
+
+
+
