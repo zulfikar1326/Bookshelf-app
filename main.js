@@ -3,7 +3,7 @@ const evencreateElement = 'EventCustom';
 const textiscomplete = 'textcomplete';
 
 const eventSave = 'save_event'; 
-const storageKey = 'WEB_LOCAL_BOOK'; 
+const storageKey = 'bookshelf-app-starter-project'; 
 
 
 
@@ -214,12 +214,12 @@ document.addEventListener(textiscomplete, function(ev){
     
     iscomplete.addEventListener('click', function(){
         if (iscomplete.checked) return; 
-        indentitasTextiscomplete.innerText = 'Sudah Dibaca';
+        indentitasTextiscomplete.innerText = 'Belum Dibaca';
     })
     
     iscomplete.addEventListener('click', function(){
         if (!iscomplete.checked)return ;
-        indentitasTextiscomplete.innerText = 'Belum Dibaca';
+        indentitasTextiscomplete.innerText = 'Sudah Dibaca';
     });
 });
 
