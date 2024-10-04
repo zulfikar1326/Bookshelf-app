@@ -23,7 +23,6 @@ function loadDataFromStorage() {
 
         }
     }
-
     document.dispatchEvent(new Event(evencreateElement));
 };
 
@@ -31,13 +30,12 @@ function saveData() {
     if (storageBrowserSupport()) {
         const data = JSON.stringify(DataBuku);
         localStorage.setItem(storageKey, data);
-        
         document.dispatchEvent(new Event(eventSave));
     }
 };
 
 document.addEventListener(eventSave, function () {
-    localStorage.getItem(storageKey)
+    const key = localStorage.getItem(storageKey)
 });
 
 function CocokkanId(book){
@@ -55,8 +53,8 @@ function deleteBook(book){
     if (outputcocokkanId == -1)return;
     DataBuku.splice(outputcocokkanId, 1)
 
-    saveData()
     document.dispatchEvent(new Event(evencreateElement));
+    saveData()
 };
 
 function find_ID(book){
@@ -84,8 +82,8 @@ function BookSwapComplete(book){
     if (outputCariId == null)return;
     book.isComplete = true;
 
-    saveData();
     document.dispatchEvent(new Event(evencreateElement))
+    saveData();
 };
 
 function createElement(bookitem){
@@ -162,7 +160,7 @@ function toObjek(id,title,author,year,isComplete){
 function tambahBuku(){
     console.log('Fungsi Tambah Buku Berjalan')
     const judulBuku = document.getElementById('bookFormTitle').value;
-    const penulisBuku = document.getElementById('bookFormTitle').value;
+    const penulisBuku = document.getElementById('bookFormAuthor').value;
     const tahunBuku = document.getElementById('bookFormYear').value;
     const iscomplete = document.getElementById('bookFormIsComplete').checked;
     
@@ -170,8 +168,8 @@ function tambahBuku(){
     const addobjek = toObjek(idcustom,judulBuku,penulisBuku,tahunBuku,iscomplete)
     DataBuku.push(addobjek)
 
-    saveData();
     document.dispatchEvent(new Event(evencreateElement));
+    saveData();
 };
 
 document.addEventListener(evencreateElement ,function(){
