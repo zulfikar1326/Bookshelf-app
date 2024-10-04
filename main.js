@@ -158,14 +158,15 @@ function toObjek(id,title,author,year,isComplete){
 };
 
 function tambahBuku(){
-    console.log('Fungsi Tambah Buku Berjalan')
     const judulBuku = document.getElementById('bookFormTitle').value;
     const penulisBuku = document.getElementById('bookFormAuthor').value;
     const tahunBuku = document.getElementById('bookFormYear').value;
+    const converttoInt = parseInt(tahunBuku);
     const iscomplete = document.getElementById('bookFormIsComplete').checked;
     
+    
     const idcustom = randomId()
-    const addobjek = toObjek(idcustom,judulBuku,penulisBuku,tahunBuku,iscomplete)
+    const addobjek = toObjek(idcustom,judulBuku,penulisBuku,converttoInt,iscomplete)
     DataBuku.push(addobjek)
 
     document.dispatchEvent(new Event(evencreateElement));
