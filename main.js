@@ -1,7 +1,6 @@
 const DataBuku = []
 const evencreateElement = 'EventCustom';
 const textiscomplete = 'textcomplete';
-
 const eventSave = 'save_event'; 
 const storageKey = 'bookshelf-app-starter-project'; 
 
@@ -12,7 +11,7 @@ function storageBrowserSupport(){
         return false;
     }
     return true;
-}
+};
 
 function loadDataFromStorage() {
     const serializedData = localStorage.getItem(storageKey);
@@ -26,8 +25,7 @@ function loadDataFromStorage() {
     }
 
     document.dispatchEvent(new Event(evencreateElement));
-}
-
+};
 
 function saveData() {
     if (storageBrowserSupport()) {
@@ -36,12 +34,11 @@ function saveData() {
         
         document.dispatchEvent(new Event(eventSave));
     }
-}
+};
 
 document.addEventListener(eventSave, function () {
     localStorage.getItem(storageKey)
 });
-
 
 function CocokkanId(book){
     for (let item in DataBuku){
@@ -50,8 +47,7 @@ function CocokkanId(book){
         }
     }
     return -1
-}
-
+};
 
 function deleteBook(book){
     outputcocokkanId = CocokkanId(book)
@@ -61,8 +57,7 @@ function deleteBook(book){
 
     saveData()
     document.dispatchEvent(new Event(evencreateElement));
-}
-
+};
 
 function find_ID(book){
     for (item in DataBuku){
@@ -71,107 +66,101 @@ function find_ID(book){
         }
     }
     return null
-}
+};
 function BookSwapNoComplete(book){
     outputCariId = find_ID(book)
 
     if (outputCariId == null)return;
-    book.iscomplete = true;
+    book.isComplete = false;
 
     document.dispatchEvent(new Event(evencreateElement));
     saveData();
-}
+};
 
 function BookSwapComplete(book){
-    outputCariId = find_ID(book)
+    const outputCariId = find_ID(book)
+
 
     if (outputCariId == null)return;
-    book.iscomplete = false;
+    book.isComplete = true;
 
+    saveData();
     document.dispatchEvent(new Event(evencreateElement))
-}
+};
 
 function createElement(bookitem){
-
     const containerInformasiBook = document.createElement('div');
     containerInformasiBook.setAttribute('data-bookid',bookitem.id);
     containerInformasiBook.setAttribute('data-testid','bookItem');
 
     const elementJudulBook = document.createElement('h3');
     elementJudulBook.setAttribute('data-testid',"bookItemTitle");
-    elementJudulBook.innerText = bookitem.judul;
+    elementJudulBook.innerText = bookitem.title;
 
     const elementPenulisBook = document.createElement('p');
     elementPenulisBook.setAttribute('data-testid',"bookItemAuthor")
-    elementPenulisBook.innerText = `PENULIS : ${bookitem.penulis}`;
+    elementPenulisBook.innerText = `PENULIS : ${bookitem.author}`;
 
     const elementTahunBook = document.createElement('p');
     elementTahunBook.setAttribute('data-testid',"bookItemYear")
-    elementTahunBook.innerText = `TAHUN : ${bookitem.tahun}`;
+    elementTahunBook.innerText = `TAHUN : ${bookitem.year}`;
     
     const createContainerButton = document.createElement('div'); 
     containerInformasiBook.append(elementJudulBook,elementPenulisBook,elementTahunBook,createContainerButton);
     
-    const elementButtonIsComplete = document.createElement('button');
+    let elementButtonIsComplete = document.createElement('button');
     elementButtonIsComplete.setAttribute('data-testid','bookItemIsCompleteButton');
     
-    const elementButtonDel = document.createElement('button');
+    let elementButtonDel = document.createElement('button');
     elementButtonDel.setAttribute('data-testid',"bookItemDeleteButton");
     elementButtonDel.innerText = "Hapus Buku";
     
-    const elementButtonEdit = document.createElement('button');
+    let elementButtonEdit = document.createElement('button');
     elementButtonEdit.setAttribute('data-testid',"bookItemEditButton");
     elementButtonEdit.innerText = "Edit Buku";
     
-    createContainerButton.append(elementButtonIsComplete,elementButtonDel,elementButtonEdit)
-    
-    if (bookitem.iscomplete == true){
-        console.log(`Kondisi Buku ${bookitem.iscomplete}`)   
-        elementButtonIsComplete.innerText = "Buku Belum Dibaca"
-        
-        elementButtonIsComplete.addEventListener('click', function(){
-            BookSwapComplete(bookitem)
-        })
+    createContainerButton.append(elementButtonIsComplete,elementButtonDel,elementButtonEdit);
 
+    if (bookitem.isComplete == true){
+        elementButtonIsComplete.innerText = 'Buku Belum Dibaca';
+
+        elementButtonIsComplete.addEventListener('click', function(){
+            BookSwapNoComplete(bookitem);
+        })
         elementButtonDel.addEventListener('click', function(){
             deleteBook(bookitem)
         })
         
-    }
-    
-    if (bookitem.iscomplete == false){
-        console.log(`Kondisi Buku ${bookitem.iscomplete}`)
-        elementButtonIsComplete.innerText = "Buku Sudah Dibaca";
-        
-        elementButtonIsComplete.addEventListener('click', function(){
-            BookSwapNoComplete(bookitem)
-        })
+    }else{
+        elementButtonIsComplete.innerText = 'Buku Sudah Dibaca';
 
+        elementButtonIsComplete.addEventListener('click', function(){
+            BookSwapComplete(bookitem);
+        })
         elementButtonDel.addEventListener('click', function(){
             deleteBook(bookitem)
         })
+
     }
-    
     return containerInformasiBook
-}
-
+};
 
 function randomId(){
     return +new Date()
-}
+};
 
-
-function toObjek(id,judul,penulis,tahun,iscomplete){
+function toObjek(id,title,author,year,isComplete){
     return{
         id,
-        judul,
-        penulis,
-        tahun,
-        iscomplete
+        title,
+        author,
+        year,
+        isComplete
     }
-}
+};
 
 function tambahBuku(){
+    console.log('Fungsi Tambah Buku Berjalan')
     const judulBuku = document.getElementById('bookFormTitle').value;
     const penulisBuku = document.getElementById('bookFormTitle').value;
     const tahunBuku = document.getElementById('bookFormYear').value;
@@ -181,15 +170,12 @@ function tambahBuku(){
     const addobjek = toObjek(idcustom,judulBuku,penulisBuku,tahunBuku,iscomplete)
     DataBuku.push(addobjek)
 
-    saveData()
+    saveData();
     document.dispatchEvent(new Event(evencreateElement));
 };
 
-
-
-
-
 document.addEventListener(evencreateElement ,function(){
+    
     const elementNoComplete = document.getElementById('incompleteBookList');
     elementNoComplete.innerHTML = '';
 
@@ -197,20 +183,22 @@ document.addEventListener(evencreateElement ,function(){
     elementComplete.innerHTML = '';
 
     for (item of DataBuku){
-        outputElement = createElement(item)
-        if (item.iscomplete){
-            elementComplete.append(outputElement)
+        let outputCreateElement = createElement(item);
+
+        if (item.isComplete === true){
+            elementComplete.append(outputCreateElement);
+            
         }else{
-            elementNoComplete.append(outputElement)
+            elementNoComplete.append(outputCreateElement)
         }
+
     }
 
 });
 
-// EVENT CUSTOM (HANDLER)
 document.addEventListener(textiscomplete, function(ev){
     const iscomplete = document.getElementById('bookFormIsComplete');
-    const indentitasTextiscomplete = document.getElementById('israk');
+    const indentitasTextiscomplete = document.querySelector('.israk');
     
     iscomplete.addEventListener('click', function(){
         if (iscomplete.checked) return; 
@@ -224,13 +212,12 @@ document.addEventListener(textiscomplete, function(ev){
 });
 
 
-/// DOM LOADED
 document.addEventListener('DOMContentLoaded', function(){
     if (storageBrowserSupport()){
         loadDataFromStorage()
     }
 
-    document.dispatchEvent(new Event(textiscomplete)); //Event Custom (Pemicu)
+    document.dispatchEvent(new Event(textiscomplete));
 
     const selectorFormInputBuku = document.getElementById('bookForm');
     selectorFormInputBuku.addEventListener('submit', function(ev){
