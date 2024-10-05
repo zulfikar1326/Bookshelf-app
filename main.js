@@ -143,6 +143,7 @@ function createElement(bookitem){
     return containerInformasiBook
 };
 
+
 function randomId(){
     return +new Date()
 };
